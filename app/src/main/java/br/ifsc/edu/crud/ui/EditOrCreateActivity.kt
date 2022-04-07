@@ -33,7 +33,7 @@ class EditOrCreateActivity : AppCompatActivity() {
     private var userModel: User? = null
     private var isEditMode: Boolean = false
     private lateinit var startGallery: ActivityResultLauncher<Intent>
-    private var selectedImage : String? = null
+    private var selectedImage: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +107,7 @@ class EditOrCreateActivity : AppCompatActivity() {
         )
     }
 
-    private fun editUser(){
+    private fun editUser() {
         if (checkFields()) {
             val nome = etNome.text.toString()
             val email = etEmail.text.toString()
@@ -116,7 +116,9 @@ class EditOrCreateActivity : AppCompatActivity() {
             userModel!!.nome = nome
             userModel!!.email = email
             userModel!!.dataNascimento = data
-            userModel!!.foto = selectedImage!!
+            selectedImage?.let {
+                userModel!!.foto = it
+            }
 
             viewModel.edit(userModel!!)
             finish()
